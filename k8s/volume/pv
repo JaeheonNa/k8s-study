@@ -19,7 +19,7 @@ spec:
         required:
             nodeSelectorTerms:
             - matchExpressions:
-              - {key: node, operatoer: In, values: [node1]}
+              - {key: node, operatoer: In, values: [node01]}
 
 ##### pvc #####
 apiVersion: v1
