@@ -2,6 +2,7 @@
 # 여러 형태의 Volume과 pv는 k8s 관리자의 영역임.
 # pv가 생성되면, pvc를 생성해 연결하고, Pod 생성 시 Pod와 pvc를 연결함.
 # pod와 pvc가 k8s 사용자의 영역임.
+# pv와 pvc가 연결이 되면, 해당 pv는 다른 pvc가 연결될 수 없음.
 
 ##### pv #####
 apiVersion: v1
