@@ -1,0 +1,25 @@
+# emptyDir이 Pod 내 volume이라면, hostPath는 Node 내 volume임.
+# pod가 죽었다 살아나도 데이터는 node에 저장되어 있으므로 사라지지 않음.
+# 다만 문제는, 해당 pod가 죽었다 살아날 때, 기존 node에 스케쥴될 거란 보장이 없음.
+# (물론 NodeSelector로 강제할 순 있겠지만.)
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: pod-volume-2
+spec:
+    containers:
+    - name: container
+      image: najh0528/hello_8080
+      ports:
+      - containerPort: 8080
+      volumeMounts:
+      - name: host-path
+        moutPath: /mount1
+    volumes:
+    - name: host-path
+      hostPath:
+        path: /node-v
+        type: Directory
+
+# 연결할 node의 디렉토리, 즉 hostPath는 이 Pod를 생성하기 전에 미리 만들어져 있어야 함.

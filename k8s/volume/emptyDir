@@ -1,0 +1,29 @@
+# emptyDir은 Volume의 일종으로 Pod 내부에 존재함.
+# 따라서 Pod가 내려가면 그 안의 내용들이 사라지게 됨.
+# Pod 내의 여러 컨테이너들이 공유함.
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: pod-1
+    labels:
+        app: pod
+spec:
+    containers:
+    - name: container-1
+      image: najh0528/hello_8000
+      ports:
+      - containerPort: 8000
+      volumeMounts:
+      - name: empty-dir
+        mountPath: /mount1
+    - name: container-2
+      image: najh0528/hello_8080
+      ports:
+      - containerPort: 8080
+      volumeMounts:
+      - name: empty-dir
+        mountPath: /mount2
+    volumes:
+    - name: empty-dir
+      emptyDir: {}
