@@ -1,0 +1,25 @@
+##### LoadBalancer는 NodePort의 성격을 그대로 갖고 있음.
+##### 추가적으로 각각의 Node에 트래픽을 분산시켜줌.
+##### 다만, 외부에서 접근할 때 필요한 LoadBalancer의 IP는 자동으로 생기지 않음.
+##### 별도로 외부 접속 IP를 할당해주는 plugin이 설치돼 있어야 생김.
+##### (AWS, GCP 등에서 제공하는 LoadBalancer는 해당 plugin이 설치돼 있어서 알아서 IP 만들어 줌.)
+
+    |||||||||||||||||||||||||||||||||||||||||||||||||||
+    |                   NodeA ->           -> PodA    |
+    |   loadBalancer ->          ClusterIP            |
+    |                   NodeB ->           -> PodB    |
+    |||||||||||||||||||||||||||||||||||||||||||||||||||
+    
+    apiVersion: v1
+    kind: Service
+    metadata:
+        name: svc-1
+    spec:
+        selector:
+            app: pod
+        ports:
+        - port: 9000
+          targetPort: 8080
+        type: LoadBalancer
+
+##### 외부 시스템 노출용.
