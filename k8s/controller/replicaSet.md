@@ -68,6 +68,7 @@
                   image: najh0528/hello_8080:v2
 
 ##### matchExpressions에는 Exists, DoesNotExist, In, NotIn 옵션이 있음.
+
     Exists: key를 설정하고, 해당 키를 갖고 있는 pod를 관리. 
     DoesNotExist: key를 설정하고, 해당 키가 없는 pod를 관리.
     In: key와 values를 설정하고, key가 일치하며, values 중 하나라도 일치하는 pod를 관리.
