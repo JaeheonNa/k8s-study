@@ -22,6 +22,7 @@
                 containers:
                 - name: container
                   image: najh0528/hello_8080:v2
+                terminationGracePeriodSeconds: 0
 
 ##### replicas를 2 이상으로 설정을 하면, controller는 그 수만큼 pod를 유지해 줌.
 
@@ -42,9 +43,11 @@
                 containers:
                 - name: container
                   image: najh0528/hello_8080:v2
+                terminationGracePeriodSeconds: 0
 
 ##### ReplicationController는 selector와 정확히 일치하는 label을 갖고 있는 pod만 관리할 수 있는 반면,
 ##### ReplicaSet은 규칙을 지정한 후 규칙에 부합하는 label을 가진 pod을 관리하게 할 수 있음.
+##### 다만, controller에서는 어차피 tempalte을 사용하여 pod를 생성/관리하기 때문에 matchExpressions는 잘 사용하지 않음.
 
     apiVersion: v1
     kind: ReplicaSet
@@ -66,6 +69,7 @@
                 containers:
                 - name: container
                   image: najh0528/hello_8080:v2
+                terminationGracePeriodSeconds: 0
 
 ##### matchExpressions에는 Exists, DoesNotExist, In, NotIn 옵션이 있음.
 
@@ -73,3 +77,6 @@
     DoesNotExist: key를 설정하고, 해당 키가 없는 pod를 관리.
     In: key와 values를 설정하고, key가 일치하며, values 중 하나라도 일치하는 pod를 관리.
     NotIn: key와 values를 설정하고, key가 일치하며, values 중 하나도 일치하지 않는 pod를 관리.
+
+##### 기본적으로 controller를 지우면, 해당 controller가 관리 중인 pod도 함께 지워짐.
+##### controller 삭제 시 --cascade=false 옵션을 주면, pod는 유지한 채, controller만 삭제 됨. 
